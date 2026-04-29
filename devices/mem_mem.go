@@ -1,7 +1,7 @@
 package devices
 
 import (
-	psMem "github.com/shirou/gopsutil/v3/mem"
+	psMem "github.com/shirou/gopsutil/v4/mem"
 )
 
 func init() {

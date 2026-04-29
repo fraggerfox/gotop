@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/VictoriaMetrics/metrics"
-	psDisk "github.com/shirou/gopsutil/v3/disk"
+	psDisk "github.com/shirou/gopsutil/v4/disk"
 
 	ui "github.com/xxxserxxx/gotop/v4/termui"
 	"github.com/xxxserxxx/gotop/v4/utils"
@@ -128,25 +128,26 @@ func (disk *DiskWidget) update() {
 
 		ioCounters, err := psDisk.IOCounters(partition.Device)
 		if err != nil {
-			log.Printf(tr.Value("error.recovfetch", "partition-"+partition.Device+"-rw", err.Error()))
-			continue
-		}
-		ioCounter := ioCounters[strings.Replace(partition.Device, "/dev/", "", -1)]
-		bytesRead, bytesWritten := ioCounter.ReadBytes, ioCounter.WriteBytes
-		if partition.BytesRead != 0 { // if this isn't the first update
-			bytesReadRecently := bytesRead - partition.BytesRead
-			bytesWrittenRecently := bytesWritten - partition.BytesWritten
-
-			readFloat, readMagnitude := utils.ConvertBytes(bytesReadRecently)
-			writeFloat, writeMagnitude := utils.ConvertBytes(bytesWrittenRecently)
-			bytesReadRecently, bytesWrittenRecently = uint64(readFloat+0.5), uint64(writeFloat+0.5)
-			partition.BytesReadRecently = fmt.Sprintf("%d%s", bytesReadRecently, readMagnitude)
-			partition.BytesWrittenRecently = fmt.Sprintf("%d%s", bytesWrittenRecently, writeMagnitude)
+			partition.BytesReadRecently = ""
+			partition.BytesWrittenRecently = ""
 		} else {
-			partition.BytesReadRecently = fmt.Sprintf("%d%s", 0, "B")
-			partition.BytesWrittenRecently = fmt.Sprintf("%d%s", 0, "B")
+			ioCounter := ioCounters[strings.Replace(partition.Device, "/dev/", "", -1)]
+			bytesRead, bytesWritten := ioCounter.ReadBytes, ioCounter.WriteBytes
+			if partition.BytesRead != 0 { // if this isn't the first update
+				bytesReadRecently := bytesRead - partition.BytesRead
+				bytesWrittenRecently := bytesWritten - partition.BytesWritten
+
+				readFloat, readMagnitude := utils.ConvertBytes(bytesReadRecently)
+				writeFloat, writeMagnitude := utils.ConvertBytes(bytesWrittenRecently)
+				bytesReadRecently, bytesWrittenRecently = uint64(readFloat+0.5), uint64(writeFloat+0.5)
+				partition.BytesReadRecently = fmt.Sprintf("%d%s", bytesReadRecently, readMagnitude)
+				partition.BytesWrittenRecently = fmt.Sprintf("%d%s", bytesWrittenRecently, writeMagnitude)
+			} else {
+				partition.BytesReadRecently = fmt.Sprintf("%d%s", 0, "B")
+				partition.BytesWrittenRecently = fmt.Sprintf("%d%s", 0, "B")
+			}
+			partition.BytesRead, partition.BytesWritten = bytesRead, bytesWritten
 		}
-		partition.BytesRead, partition.BytesWritten = bytesRead, bytesWritten
 	}
 
 	// converts self.Partitions into self.Rows which is a [][]String

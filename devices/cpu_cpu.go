@@ -3,7 +3,7 @@ package devices
 import (
 	"fmt"
 
-	psCpu "github.com/shirou/gopsutil/v3/cpu"
+	psCpu "github.com/shirou/gopsutil/v4/cpu"
 )
 
 func init() {

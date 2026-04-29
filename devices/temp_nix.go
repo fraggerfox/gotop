@@ -8,7 +8,7 @@ import (
 
 	"github.com/anatol/smart.go"
 	"github.com/jaypipes/ghw"
-	"github.com/shirou/gopsutil/v3/host"
+	gosensors "github.com/shirou/gopsutil/v4/sensors"
 )
 
 var smDevices map[string]smart.Device
@@ -51,9 +51,9 @@ func endBlock() error {
 }
 
 func getTemps(temps map[string]int) map[string]error {
-	sensors, err := host.SensorsTemperatures()
+	sensors, err := gosensors.SensorsTemperatures()
 	if err != nil {
-		if _, ok := err.(*host.Warnings); ok {
+		if _, ok := err.(*gosensors.Warnings); ok {
 			// ignore warnings
 		} else {
 			return map[string]error{"gopsutil host": err}

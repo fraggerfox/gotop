@@ -4,7 +4,7 @@
 package devices
 
 import (
-	psHost "github.com/shirou/gopsutil/v3/host"
+	"github.com/shirou/gopsutil/v4/sensors"
 )
 
 func init() {
@@ -13,7 +13,7 @@ func init() {
 }
 
 func update(temps map[string]int) map[string]error {
-	sensors, err := psHost.SensorsTemperatures()
+	sensors, err := sensors.SensorsTemperatures()
 	if err != nil {
 		return map[string]error{"gopsutil": err}
 	}
@@ -26,7 +26,7 @@ func update(temps map[string]int) map[string]error {
 }
 
 func devs() []string {
-	sensors, err := psHost.SensorsTemperatures()
+	sensors, err := sensors.SensorsTemperatures()
 	if err != nil {
 		return []string{}
 	}

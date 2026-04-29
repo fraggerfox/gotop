@@ -10,7 +10,7 @@ import (
 	"io"
 	"log"
 
-	"github.com/shirou/gopsutil/v3/host"
+	"github.com/shirou/gopsutil/v4/sensors"
 )
 
 // All possible thermometers
@@ -21,7 +21,7 @@ func devs() []string {
 	}
 	// Otherwise, get the sensor data from the system & filter it
 	ids := loadIDs()
-	sensors, err := host.SensorsTemperatures()
+	sensors, err := sensors.SensorsTemperatures()
 	if err != nil {
 		log.Printf("error getting sensor list for temps: %s", err)
 		return []string{}
