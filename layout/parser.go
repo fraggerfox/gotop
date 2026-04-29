@@ -84,7 +84,7 @@ func ParseLayout(i io.Reader) layout {
 				v, e := strconv.Atoi(rs[0])
 				if e != nil {
 					ln := strconv.Itoa(lineNo)
-					log.Printf(tr.Value("layout.error.format", "INT:STRING/INT", ln, rs[0], w))
+					log.Printf("%s", tr.Value("layout.error.format", "INT:STRING/INT", ln, rs[0], w))
 					v = 1
 				}
 				if v < 1 {
@@ -101,7 +101,7 @@ func ParseLayout(i io.Reader) layout {
 				weight, e := strconv.Atoi(ks[1])
 				if e != nil {
 					ln := strconv.Itoa(lineNo)
-					log.Printf(tr.Value("layout.error.format", "STRING/INT", ln, ks[1], w))
+					log.Printf("%s", tr.Value("layout.error.format", "STRING/INT", ln, ks[1], w))
 					weight = 1
 				}
 				if weight < 1 {
@@ -110,7 +110,7 @@ func ParseLayout(i io.Reader) layout {
 				wr.Weight = float64(weight)
 				if len(ks) > 2 {
 					ln := strconv.Itoa(lineNo)
-					log.Printf(tr.Value("layout.error.slashes", ln, w))
+					log.Printf("%s", tr.Value("layout.error.slashes", ln, w))
 				}
 				weightTotal += weight
 			} else {

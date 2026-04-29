@@ -202,7 +202,7 @@ func makeWidget(c gotop.Config, widRule widgetRule) interface{} {
 		b.BarColor = ui.Color(c.Colorscheme.ProcCursor)
 		w = b
 	default:
-		log.Printf(tr.Value("layout.error.widget", widRule.Widget, strings.Join(widgetNames, ",")))
+		log.Printf("%s", tr.Value("layout.error.widget", widRule.Widget, strings.Join(widgetNames, ",")))
 		return ui.NewBlock()
 	}
 	if c.ExportPort != "" {

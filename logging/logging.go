@@ -106,7 +106,7 @@ func (w *RotateWriter) rotate() (err error) {
 	// open the log file
 	w.fp, err = os.OpenFile(w.filename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0660)
 	if err != nil {
-		return fmt.Errorf(w.tr.Value("error.logopen", w.filename, err.Error()))
+		return fmt.Errorf("%s", w.tr.Value("error.logopen", w.filename, err.Error()))
 	}
 
 	return nil

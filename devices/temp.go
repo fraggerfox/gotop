@@ -17,7 +17,7 @@ func UpdateTemps(temps map[string]int) {
 		errs := f(temps)
 		if errs != nil {
 			for k, e := range errs {
-				log.Printf(tr.Value("error.recovfetch", "temp", k, e.Error()))
+				log.Printf("%s", tr.Value("error.recovfetch", "temp", k, e.Error()))
 			}
 		}
 	}

@@ -107,7 +107,7 @@ func load(in io.Reader, conf *Config) error {
 		}
 		kv := strings.Split(l, "=")
 		if len(kv) != 2 {
-			return fmt.Errorf(conf.Tr.Value("config.err.configsyntax", l))
+			return fmt.Errorf("%s", conf.Tr.Value("config.err.configsyntax", l))
 		}
 		key := strings.ToLower(kv[0])
 		ln := strconv.Itoa(lineNo)
@@ -115,7 +115,7 @@ func load(in io.Reader, conf *Config) error {
 		default:
 			conf.ExtensionVars[key] = kv[1]
 		case "configdir", "logdir", "logfile":
-			log.Printf(conf.Tr.Value("config.err.deprecation", ln, key, kv[1]))
+			log.Printf("%s", conf.Tr.Value("config.err.deprecation", ln, key, kv[1]))
 		case graphhorizontalscale:
 			iv, err := strconv.Atoi(kv[1])
 			if err != nil {
@@ -125,31 +125,31 @@ func load(in io.Reader, conf *Config) error {
 		case helpvisible:
 			bv, err := strconv.ParseBool(kv[1])
 			if err != nil {
-				return fmt.Errorf(conf.Tr.Value("config.err.line", ln, err.Error()))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.line", ln, err.Error()))
 			}
 			conf.HelpVisible = bv
 		case colorscheme:
 			cs, err := colorschemes.FromName(conf.ConfigDir, kv[1])
 			if err != nil {
-				return fmt.Errorf(conf.Tr.Value("config.err.line", ln, err.Error()))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.line", ln, err.Error()))
 			}
 			conf.Colorscheme = cs
 		case updateinterval:
 			iv, err := strconv.Atoi(kv[1])
 			if err != nil {
-				return fmt.Errorf(conf.Tr.Value("config.err.line", ln, err.Error()))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.line", ln, err.Error()))
 			}
 			conf.UpdateInterval = time.Duration(iv)
 		case averagecpu:
 			bv, err := strconv.ParseBool(kv[1])
 			if err != nil {
-				return fmt.Errorf(conf.Tr.Value("config.err.line", ln, err.Error()))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.line", ln, err.Error()))
 			}
 			conf.AverageLoad = bv
 		case percpuload:
 			bv, err := strconv.ParseBool(kv[1])
 			if err != nil {
-				return fmt.Errorf(conf.Tr.Value("config.err.line", ln, err.Error()))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.line", ln, err.Error()))
 			}
 			conf.PercpuLoad = bv
 		case tempscale:
@@ -160,12 +160,12 @@ func load(in io.Reader, conf *Config) error {
 				conf.TempScale = 'F'
 			default:
 				conf.TempScale = 'C'
-				return fmt.Errorf(conf.Tr.Value("config.err.tempscale", kv[1]))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.tempscale", kv[1]))
 			}
 		case statusbar:
 			bv, err := strconv.ParseBool(kv[1])
 			if err != nil {
-				return fmt.Errorf(conf.Tr.Value("config.err.line", ln, err.Error()))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.line", ln, err.Error()))
 			}
 			conf.Statusbar = bv
 		case netinterface:
@@ -175,7 +175,7 @@ func load(in io.Reader, conf *Config) error {
 		case maxlogsize:
 			iv, err := strconv.Atoi(kv[1])
 			if err != nil {
-				return fmt.Errorf(conf.Tr.Value("config.err.line", ln, err.Error()))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.line", ln, err.Error()))
 			}
 			conf.MaxLogSize = int64(iv)
 		case export:
@@ -187,13 +187,13 @@ func load(in io.Reader, conf *Config) error {
 		case nvidia:
 			nv, err := strconv.ParseBool(kv[1])
 			if err != nil {
-				return fmt.Errorf(conf.Tr.Value("config.err.line", ln, err.Error()))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.line", ln, err.Error()))
 			}
 			conf.Nvidia = nv
 		case nvidiarefresh:
 			d, err := time.ParseDuration(kv[1])
 			if err != nil {
-				return fmt.Errorf(conf.Tr.Value("config.err.line", ln, err.Error()))
+				return fmt.Errorf("%s", conf.Tr.Value("config.err.line", ln, err.Error()))
 			}
 			conf.NvidiaRefresh = d
 		}

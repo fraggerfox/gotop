@@ -84,7 +84,7 @@ func (self *Table) Draw(buf *Buffer) {
 
 	if self.TopRow < 0 {
 		r := strconv.Itoa(self.TopRow)
-		log.Printf(self.Tr.Value("error.table", r))
+		log.Printf("%s", self.Tr.Value("error.table", r))
 		return
 	}
 

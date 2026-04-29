@@ -45,7 +45,7 @@ func NewBatteryWidget(horizontalScale int) *BatteryWidget {
 func (b *BatteryWidget) EnableMetric() {
 	bats, err := battery.GetAll()
 	if err != nil {
-		log.Printf(tr.Value("error.metricsetup", "batt", err.Error()))
+		log.Printf("%s", tr.Value("error.metricsetup", "batt", err.Error()))
 		return
 	}
 	for i, _ := range bats {
@@ -72,7 +72,7 @@ func (b *BatteryWidget) update() {
 	if err != nil {
 		switch errt := err.(type) {
 		case battery.ErrFatal:
-			log.Printf(tr.Value("error.fatalfetch", "batt", err.Error()))
+			log.Printf("%s", tr.Value("error.fatalfetch", "batt", err.Error()))
 			return
 		case battery.Errors:
 			batts := make([]*battery.Battery, 0)

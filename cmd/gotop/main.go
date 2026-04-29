@@ -167,7 +167,7 @@ func parseArgs() error {
 				return err
 			}
 		default:
-			fmt.Printf(tr.Value("error.unknownopt", *list))
+			fmt.Printf("%s", tr.Value("error.unknownopt", *list))
 			os.Exit(1)
 		}
 		os.Exit(0)
@@ -527,7 +527,7 @@ func getLayout(conf gotop.Config) (io.Reader, error) {
 			for _, d := range conf.ConfigDir.QueryFolders(configdir.Existing) {
 				paths = append(paths, d.Path)
 			}
-			return nil, fmt.Errorf(tr.Value("error.findlayout", conf.Layout, strings.Join(paths, ", ")))
+			return nil, fmt.Errorf("%s", tr.Value("error.findlayout", conf.Layout, strings.Join(paths, ", ")))
 		}
 		lo, err := folder.ReadFile(conf.Layout)
 		if err != nil {

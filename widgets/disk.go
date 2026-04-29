@@ -74,7 +74,7 @@ func (disk *DiskWidget) EnableMetric() {
 func (disk *DiskWidget) update() {
 	partitions, err := psDisk.Partitions(false)
 	if err != nil {
-		log.Printf(tr.Value("error.setup", "disk-partitions", err.Error()))
+		log.Printf("%s", tr.Value("error.setup", "disk-partitions", err.Error()))
 		return
 	}
 
@@ -119,7 +119,7 @@ func (disk *DiskWidget) update() {
 	for _, partition := range disk.Partitions {
 		usage, err := psDisk.Usage(partition.MountPoint)
 		if err != nil {
-			log.Printf(tr.Value("error.recovfetch", "partition-"+partition.MountPoint+"-usage", err.Error()))
+			log.Printf("%s", tr.Value("error.recovfetch", "partition-"+partition.MountPoint+"-usage", err.Error()))
 			continue
 		}
 		partition.UsedPercent = uint32(usage.UsedPercent + 0.5)

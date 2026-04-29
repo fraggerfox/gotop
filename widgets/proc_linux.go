@@ -11,7 +11,7 @@ import (
 func getProcs() ([]Proc, error) {
 	output, err := exec.Command("ps", "-axo", "pid:10,comm:50,pcpu:5,pmem:5,args").Output()
 	if err != nil {
-		return nil, fmt.Errorf(tr.Value("widget.proc.err.ps", err.Error()))
+		return nil, fmt.Errorf("%s", tr.Value("widget.proc.err.ps", err.Error()))
 	}
 
 	// converts to []string, removing trailing newline and header

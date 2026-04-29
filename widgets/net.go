@@ -121,7 +121,7 @@ func (net *NetWidget) update() {
 		}
 		if int(recentBytesSent) < 0 {
 			v := fmt.Sprintf("%d", recentBytesSent)
-			log.Printf(tr.Value("widget.net.err.negvalsent", v))
+			log.Printf("%s", tr.Value("widget.net.err.negvalsent", v))
 			// recover from error
 			recentBytesSent = 0
 		}

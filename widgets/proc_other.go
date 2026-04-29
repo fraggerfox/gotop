@@ -23,7 +23,7 @@ func getProcs() ([]Proc, error) {
 	keywords := fmt.Sprintf("pid=%s,comm=%s,pcpu=%s,pmem=%s,args", ten, fifty, five, five)
 	output, err := exec.Command("ps", "-caxo", keywords).Output()
 	if err != nil {
-		return nil, fmt.Errorf(tr.Value("widget.proc.err.ps", err.Error()))
+		return nil, fmt.Errorf("%s", tr.Value("widget.proc.err.ps", err.Error()))
 	}
 
 	// converts to []string and removes the header

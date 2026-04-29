@@ -137,7 +137,7 @@ func (proc *ProcWidget) filterProcs(procs []Proc) []Proc {
 func (proc *ProcWidget) update() {
 	procs, err := getProcs()
 	if err != nil {
-		log.Printf(tr.Value("widget.proc.error.retrieve", err.Error()))
+		log.Printf("%s", tr.Value("widget.proc.error.retrieve", err.Error()))
 		return
 	}
 
